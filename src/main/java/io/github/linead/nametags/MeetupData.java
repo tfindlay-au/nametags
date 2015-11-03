@@ -23,7 +23,7 @@ public class MeetupData {
 
     private static final String EVENT_URL = "https://api.meetup.com/self/events?scroll=next_upcoming&photo-host=public&page=20&sig_id=29034422&sig=c9d17fea93c5788258d2703a5a5d92f651f65374";
 
-    private static final String RSVP_URL = "https://api.meetup.com/2/rsvps?&sign=true&key={key}&event_id={event_id}&photo-host=public&page=120";
+    private static final String RSVP_URL = "https://api.meetup.com/2/rsvps?&sign=true&key={key}&event_id={event_id}&photo-host=public&page=120&rsvp=yes";
 
     private static final String MEMBERS_URL = "https://api.meetup.com/2/members?&key={key}&sign=true&photo-host=public&group_id={group_id}&page=100&only=id,joined,photo&offset={page}";
 
