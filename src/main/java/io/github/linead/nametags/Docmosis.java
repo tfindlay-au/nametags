@@ -12,8 +12,6 @@ public class Docmosis {
     @Autowired
     Environment env;
 
-
-
     public String getKey() { return env.getProperty("docmosis_api.key"); }
 
 }
