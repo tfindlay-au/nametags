@@ -48,6 +48,7 @@ public class MeetupData {
 
         ResponseEntity<Rsvps> responseEntity = restTemplate.getForEntity(RSVP_URL, Rsvps.class, params);
         Rsvps rsvps = responseEntity.getBody();
+        
         return rsvps;
     }
 

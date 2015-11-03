@@ -74,6 +74,8 @@ public class Nametags implements CommandLineRunner {
 
             attendees.add(att);
         }
+
+        attendees.sort(Comparator.comparing(Attendee::getName));
         Map<String, List<Attendee>> resultMap = new HashMap<>();
         resultMap.put("attendees", attendees);
         return resultMap;
