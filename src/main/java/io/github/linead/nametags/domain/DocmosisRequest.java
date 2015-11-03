@@ -1,15 +1,17 @@
 package io.github.linead.nametags.domain;
 
+import java.util.List;
 import java.util.Map;
 
 public class DocmosisRequest {
 
     private String accessKey;
 
-    private String template;
+    private String templateName;
 
-    private Map<String,Attendee> attendeeMap;
+    private String outputName;
 
+    private Map<String, List<Attendee>> data;
 
     public String getAccessKey() {
         return accessKey;
@@ -19,19 +21,27 @@ public class DocmosisRequest {
         this.accessKey = accessKey;
     }
 
-    public String getTemplate() {
-        return template;
+    public String getTemplateName() {
+        return templateName;
     }
 
-    public void setTemplate(String template) {
-        this.template = template;
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
     }
 
-    public Map<String, Attendee> getAttendeeMap() {
-        return attendeeMap;
+    public Map<String, List<Attendee>> getData() {
+        return data;
     }
 
-    public void setAttendeeMap(Map<String, Attendee> attendeeMap) {
-        this.attendeeMap = attendeeMap;
+    public void setData(Map<String, List<Attendee>> attendeeMap) {
+        this.data = attendeeMap;
+    }
+
+    public String getOutputName() {
+        return outputName;
+    }
+
+    public void setOutputName(String outputName) {
+        this.outputName = outputName;
     }
 }

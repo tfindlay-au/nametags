@@ -13,8 +13,10 @@ import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
 
@@ -26,6 +28,8 @@ public class Nametags implements CommandLineRunner {
     @Autowired
     MeetupData meetup;
 
+    @Autowired
+    Docmosis docmosis;
 
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Nametags.class, args);
@@ -71,6 +75,13 @@ public class Nametags implements CommandLineRunner {
         Map<String, List<Attendee>> resultMap = new HashMap<>();
         resultMap.put("attendees", attendees);
         return resultMap;
+
+    }
+
+    @RequestMapping(value = "/nametags", produces = "application/x-pdf")
+    public byte[] getNameTags(HttpServletResponse response, @RequestParam(value = "eventId") String eventId) {
+
+        return docmosis.render(getAttendeeList(eventId));
 
     }
 
