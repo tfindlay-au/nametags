@@ -23,7 +23,7 @@ public class Docmosis {
     public byte[] render(Map<String, List<Attendee>> attendeeList) {
         DocmosisRequest req =new DocmosisRequest();
         req.setAccessKey(getKey());
-        req.setTemplateName("labels2.doc");
+        req.setTemplateName("A-0003-01_P-dm-template2.doc");
         req.setOutputName("all_labels.pdf");
         req.setData(attendeeList);
 

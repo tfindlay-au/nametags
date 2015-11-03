@@ -9,14 +9,6 @@ public class Attendee {
     private Date joined;
     private String pictureUrl;
 
-    public String getPictureUrl() {
-        return pictureUrl;
-    }
-
-    public void setPictureUrl(String pictureUrl) {
-        this.pictureUrl = pictureUrl;
-    }
-
     public String getName() {
         return name;
     }
@@ -41,5 +33,15 @@ public class Attendee {
         this.id = id;
     }
 
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
 
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
+
+    public String getPhoto() {
+        return pictureUrl == null ? "" : String.format("[imageUrl:%s]", pictureUrl);
+    }
 }
