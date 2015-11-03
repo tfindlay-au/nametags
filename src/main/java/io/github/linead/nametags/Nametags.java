@@ -67,6 +67,8 @@ public class Nametags implements CommandLineRunner {
                 att.setJoined(member.getJoined());
                 if(member.getPhoto() != null) {
                     att.setPictureUrl(member.getPhoto().getThumb_link());
+                } else {
+                    att.setPictureUrl("http://photos1.meetupstatic.com/photos/event/4/a/4/8/600_1819016.jpeg");
                 }
             }
 
