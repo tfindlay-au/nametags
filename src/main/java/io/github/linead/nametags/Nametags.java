@@ -15,10 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @SpringBootApplication
@@ -40,7 +37,7 @@ public class Nametags implements CommandLineRunner {
     }
 
     @RequestMapping("/attendees")
-    public List<Attendee> getAttendeeList(@RequestParam(value="eventId") String eventId) {
+    public Map<String, List<Attendee>> getAttendeeList(@RequestParam(value = "eventId") String eventId) {
 
         List<Attendee> attendees = new ArrayList<>();
 
@@ -71,8 +68,9 @@ public class Nametags implements CommandLineRunner {
 
             attendees.add(att);
         }
-
-        return attendees;
+        Map<String, List<Attendee>> resultMap = new HashMap<>();
+        resultMap.put("attendees", attendees);
+        return resultMap;
 
     }
 

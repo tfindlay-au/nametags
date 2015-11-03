@@ -51,7 +51,7 @@ public class MeetupData {
         return rsvps;
     }
 
-//    @Cacheable("members")
+    @Cacheable("members")
     public Map<String, Members.Member> getMembers(String groupId) {
         RestTemplate restTemplate = new RestTemplate();
         Map<String, Object> params = new HashMap<String, Object>();
