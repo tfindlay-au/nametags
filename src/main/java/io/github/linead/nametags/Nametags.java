@@ -13,7 +13,6 @@ import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
@@ -75,7 +74,7 @@ public class Nametags implements CommandLineRunner {
             attendees.add(att);
         }
 
-        attendees.sort(Comparator.comparing(Attendee::getName));
+        attendees.sort(Comparator.comparing(Attendee::getName, String.CASE_INSENSITIVE_ORDER));
         Map<String, List<Attendee>> resultMap = new HashMap<>();
         resultMap.put("attendees", attendees);
         return resultMap;
