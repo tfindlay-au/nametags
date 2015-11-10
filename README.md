@@ -45,4 +45,9 @@ Returns a list of attendees who have RSVPd YES to the meetup
 ### Nametags `/nametags?eventId=XXXXXX`
 Generates the pdf using the template  
 
+Docmosis
+---------
+Check out the Template Guide and the API guide in [Docmosis Cloud documentaion](https://www.docmosis.com/resources/cloud.html)
+If you just want to get up to speed with the templating language quickly also checkout [https://www.docmosis.com/how-it-works/creating-templates.html]
 
+Any questions contact [Paul Jowett](mailto:paul@docmosis.com)
