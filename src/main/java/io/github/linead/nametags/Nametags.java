@@ -7,6 +7,7 @@ import io.github.linead.nametags.domain.Rsvp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
@@ -22,7 +23,7 @@ import java.util.*;
 @SpringBootApplication
 @EnableCaching
 @RestController
-public class Nametags implements CommandLineRunner {
+public class Nametags extends SpringBootServletInitializer implements CommandLineRunner {
 
     @Autowired
     MeetupData meetup;
