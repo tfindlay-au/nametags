@@ -12,11 +12,16 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
@@ -83,9 +88,18 @@ public class Nametags extends SpringBootServletInitializer implements CommandLin
     }
 
     @RequestMapping(value = "/nametags", produces = "application/x-pdf")
-    public byte[] getNameTags(HttpServletResponse response, @RequestParam(value = "eventId") String eventId) {
+    public HttpEntity<byte[]> getNameTags(HttpServletResponse response, @RequestParam(value = "eventId") String eventId) {
 
-        return docmosis.render(getAttendeeList(eventId));
+        response.setHeader("Content-Disposition",
+                "attachment; filename=" + eventId +"_"
+                        + DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(LocalDateTime.now())
+                        + "_nametags.pdf");
+
+        byte[] pdf = docmosis.render(getAttendeeList(eventId));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+        
+        return new HttpEntity<byte[]>(pdf, headers);
 
     }
 
