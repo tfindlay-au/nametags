@@ -62,6 +62,11 @@ public class Nametags extends SpringBootServletInitializer implements CommandLin
                 continue;
             }
 
+            if("yes".equals(rsvp.getStatus())) {
+                continue;
+            }
+
+
             //new attendee
             Attendee att = new Attendee();
             att.setId(rsvp.getMember().getMember_id());
@@ -75,7 +80,11 @@ public class Nametags extends SpringBootServletInitializer implements CommandLin
                 } else {
                     att.setPictureUrl("http://photos1.meetupstatic.com/photos/event/4/a/4/8/600_1819016.jpeg");
                 }
+
+
             }
+
+
 
             attendees.add(att);
         }
@@ -98,7 +107,7 @@ public class Nametags extends SpringBootServletInitializer implements CommandLin
         byte[] pdf = docmosis.render(getAttendeeList(eventId));
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
-        
+
         return new HttpEntity<byte[]>(pdf, headers);
 
     }
