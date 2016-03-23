@@ -4,12 +4,18 @@ public class Rsvp {
 
     private Member member;
 
+    private String status;
+
     public Member getMember() {
         return member;
     }
 
     public void setMember(Member member) {
         this.member = member;
+    }
+
+    public String getStatus() {
+        return status;
     }
 
     public class Member {

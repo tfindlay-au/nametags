@@ -7,22 +7,28 @@ import io.github.linead.nametags.domain.Rsvp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.*;
 import org.springframework.boot.autoconfigure.*;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 
 @SpringBootApplication
 @EnableCaching
 @RestController
-public class Nametags implements CommandLineRunner {
+public class Nametags extends SpringBootServletInitializer implements CommandLineRunner {
 
     @Autowired
     MeetupData meetup;
@@ -56,6 +62,11 @@ public class Nametags implements CommandLineRunner {
                 continue;
             }
 
+            if("yes".equals(rsvp.getStatus())) {
+                continue;
+            }
+
+
             //new attendee
             Attendee att = new Attendee();
             att.setId(rsvp.getMember().getMember_id());
@@ -69,7 +80,11 @@ public class Nametags implements CommandLineRunner {
                 } else {
                     att.setPictureUrl("http://photos1.meetupstatic.com/photos/event/4/a/4/8/600_1819016.jpeg");
                 }
+
+
             }
+
+
 
             attendees.add(att);
         }
@@ -82,9 +97,18 @@ public class Nametags implements CommandLineRunner {
     }
 
     @RequestMapping(value = "/nametags", produces = "application/x-pdf")
-    public byte[] getNameTags(HttpServletResponse response, @RequestParam(value = "eventId") String eventId) {
+    public HttpEntity<byte[]> getNameTags(HttpServletResponse response, @RequestParam(value = "eventId") String eventId) {
 
-        return docmosis.render(getAttendeeList(eventId));
+        response.setHeader("Content-Disposition",
+                "attachment; filename=" + eventId +"_"
+                        + DateTimeFormatter.ISO_LOCAL_DATE_TIME.format(LocalDateTime.now())
+                        + "_nametags.pdf");
+
+        byte[] pdf = docmosis.render(getAttendeeList(eventId));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
+
+        return new HttpEntity<byte[]>(pdf, headers);
 
     }
 
