@@ -1,5 +1,9 @@
 package io.github.linead.nametags.domain;
 
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Event {
@@ -7,6 +11,7 @@ public class Event {
     private String id;
     private Date created;
     private long duration;
+    private long time;
     private Group group;
     private Venue venue;
     private String name;
@@ -57,6 +62,19 @@ public class Event {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
+    }
+
+    public String getDate() {
+        return LocalDateTime.ofInstant(Instant.ofEpochMilli(time),
+                ZoneId.systemDefault()).format(DateTimeFormatter.ISO_DATE);
     }
 
     public class Group {

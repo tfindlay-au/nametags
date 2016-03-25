@@ -2,7 +2,7 @@ var app = angular.module('nametags', ['ngRoute']);
 app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.
     when('/events', {
-        controller: 'events', templateUrl: 'partials/list.html'
+        templateUrl: 'partials/list.html'
     }).
     when('/events/:eventId', {
         controller: 'members', templateUrl: 'partials/event.html'
@@ -12,8 +12,13 @@ app.config(['$routeProvider', function ($routeProvider) {
     });
 }]);
 
-app.controller('events', function ($scope, $http) {
+app.controller('events', function ($scope, $routeParams, $http) {
     $scope.events = [];
+    $scope.selectedEvent = null;
+    $scope.selectEvent = function (eventId) {
+        $scope.selectedEvent = eventId;
+    };
+
     $http.get('events/').success(function (data) {
         $scope.events = data;
     })
