@@ -17,11 +17,15 @@ How you supply these too your application is up to you, you could :
 - Supply an application properties next to the war
 - Put them in as environment variables
 
-Here's what you want 
-meetup_api.key=See above
-docmosis_api.key=See above
-security.username=a username of your choice
-security.password=a password of your choice
+Here's what you want :
+
+`meetup_api.key=See above`
+
+`docmosis_api.key=See above`
+
+`security.username=a username of your choice`
+
+`security.password=a password of your choice`
 
 - Avery white address labels, 14 per page. For software code L7163 / reorder code 959089.
 -- Feel free to change `template5.docx` referenced in `src/main/java/io/github/linead/nametags/Docmosis.java` 
