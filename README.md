@@ -12,7 +12,16 @@ Story here [WHY_NAMETAGS.md](WHY_NAMETAGS.md)
 - [Docmosis Cloud (free) account](https://www.docmosis.com/try/cloud.html)
 - [Meetup api key](https://secure.meetup.com/meetup_api/key/)
 
-Put these in __src/main/resources/application.properties__
+How you supply these too your application is up to you, you could : 
+- Put these in __src/main/resources/application.properties__
+- Supply an application properties next to the war
+- Put them in as environment variables
+
+Here's what you want 
+meetup_api.key=See above
+docmosis_api.key=See above
+security.username=a username of your choice
+security.password=a password of your choice
 
 - Avery white address labels, 14 per page. For software code L7163 / reorder code 959089.
 -- Feel free to change `template5.docx` referenced in `src/main/java/io/github/linead/nametags/Docmosis.java` 
@@ -31,8 +40,10 @@ Setup
    Use name `template5.docx` or change code in the following step.
 3. Update `template5.docx` referenced in `src/main/java/io/github/linead/nametags/Docmosis.java` 
    to a different file of your own template choosing to match what you uploaded.
-4. `mvn clean install` or `mvn package` if you wish to produce an executable jar
-5. Otherwise in your IDE, run src/java/io/github/linead/nametags/Nametags.java
+4. Run it in one of 3 easy ways!
+   - run the executable war with java -jar
+   - stick the war in tomcat
+   - run it from maven with mvn spring-boot:run
 
 Endpoints
 ----------
