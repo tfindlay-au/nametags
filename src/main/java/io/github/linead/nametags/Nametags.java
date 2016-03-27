@@ -78,7 +78,7 @@ public class Nametags extends SpringBootServletInitializer implements CommandLin
                 if(member.getPhoto() != null) {
                     att.setPictureUrl(member.getPhoto().getThumb_link());
                 } else {
-                    att.setPictureUrl("http://photos1.meetupstatic.com/photos/event/4/a/4/8/600_1819016.jpeg");
+                    att.setPictureUrl("http://photos3.meetupstatic.com/photos/event/7/3/a/2/global_414329602.jpeg");
                 }
             }
 

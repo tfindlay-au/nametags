@@ -1,10 +1,14 @@
-
 <div>
     <a href="/nametags?eventId={{eventId}}" class="btn btn-default" style="float:right">Nametags</a>
-    <!--<a class="btn btn-default" style="float:right">Raffle</a>-->
+    <a href="#/raffle/{{eventId}}" class="btn btn-default" style="float:right">Raffle</a>
     <h1 class="page-header">Attendees</h1>
 </div>
-<div class="col-xs-6 col-sm-3 placeholder" ng-repeat="attendee in attendees">
-    <img src="{{attendee.pictureUrl}}">
-    <h4>{{attendee.name}}</h4>
+
+<div>
+
+    <div class="col-xs-6 col-sm-3 placeholder" ng-repeat="attendee in attendees">
+        <img src="{{attendee.pictureUrl}}">
+        <h4>{{attendee.name}}</h4>
+    </div>
+
 </div>
