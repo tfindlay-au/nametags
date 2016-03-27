@@ -3,6 +3,7 @@ package io.github.linead.nametags;
 import io.github.linead.nametags.domain.Attendee;
 import io.github.linead.nametags.domain.DocmosisRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.http.*;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
@@ -19,6 +20,9 @@ public class Docmosis {
 
     @Autowired
     Environment env;
+
+    @Value("${docmosis-api.key}")
+    private String key;
 
     public byte[] render(Map<String, List<Attendee>> attendeeList) {
         DocmosisRequest req =new DocmosisRequest();
@@ -37,6 +41,6 @@ public class Docmosis {
 
 
 
-    public String getKey() { return env.getProperty("docmosis_api.key"); }
+    public String getKey() { return key; }
 
 }

@@ -1,0 +1,20 @@
+<div>
+    <a href="/nametags?eventId={{eventId}}" class="btn btn-primary" style="float:right">Nametags</a>
+    <a href="#/events/{{eventId}}" class="btn btn-primary" style="float:right">Attendees</a>
+    <a class="btn btn-success" style="float:right" ng-click="showRaffle()">Raffle</a>
+    <h1 class="page-header">Raffle</h1>
+</div>
+
+<div style="display:none" class="jumbotron" id="raffleDiv">
+    <div id="raffleContainer">
+        <img id="rafflePic" src="http://photos3.meetupstatic.com/photos/event/7/3/a/2/global_414329602.jpeg" />
+        <h1 id="raffleText"></h1>
+    </div>
+    <a class="btn btn-lg btn-success" ng-click="drawRaffle()">Draw Raffle</a>
+</div>
+
+<div class="raffle col-xs-6 col-sm-3 placeholder" ng-repeat="attendee in attendees">
+    <img src="{{attendee.pictureUrl}}">
+    <h4 class="attendeeName">{{attendee.name}}</h4>
+    <button class="remove-btn" ng-click="removeAttendee(attendee)">remove</button>
+</div>
