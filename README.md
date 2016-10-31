@@ -49,6 +49,11 @@ Setup
    - stick the war in tomcat
    - run it from maven with mvn spring-boot:run
 
+Run/Debug in IDEA
+------------------
+Comment out the scope PROVIDED line for the `org.springframework.boot:spring-boot-starter-tomcat` dependency to pull in 
+the servlet jars normally provided by your container when building a war.
+
 Endpoints
 ----------
 ### Events `/events`
