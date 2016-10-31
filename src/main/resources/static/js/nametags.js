@@ -80,8 +80,8 @@ app.controller('raffle',
             }
 
             //now we want to cycle through a few of these
-            var showHide = function(index, left) {
-                if(left < 1) {
+            var showHide = function(index, cyclesRemaining) {
+                if(cyclesRemaining < 1) {
                     return;
                 }
 
@@ -94,12 +94,12 @@ app.controller('raffle',
                     rafflePic.attr('src', target.parent().find('img').attr('src'))
                     raffleText.text(target.text())
                     raffleContainer.fadeIn(100, function() {
-                        showHide(index+1, left-1);
+                        showHide(index+1, cyclesRemaining-1);
                     })
                 });
             };
 
-            showHide(0, 50);
+            showHide(0, raffleTargets.length / 4);
 
 
 
