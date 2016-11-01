@@ -25,22 +25,26 @@ public class MeetupData {
     @Value("${meetup-api.key}")
     private String key;
 
-    private static final String EVENT_URL = "https://api.meetup.com/self/events?scroll=next_upcoming&photo-host=public&sign=true&page=20&key={key}";
+    @Value("${meetup-url-path}")
+    private String meetupPath;
+
+    private static final String EVENT_URL = "https://api.meetup.com/{meetup_url_path}/events?scroll=next_upcoming&photo-host=public&page=20&key={key}";
 
     private static final String RSVP_URL = "https://api.meetup.com/2/rsvps?&sign=true&key={key}&event_id={event_id}&photo-host=public&page=120&rsvp=yes";
 
     private static final String MEMBERS_URL = "https://api.meetup.com/2/members?&key={key}&sign=true&photo-host=public&group_id={group_id}&page=100&only=id,joined,photo&offset={page}";
 
-    
+
     public String getKey() { return key; }
 
     public Event[] getNextMeetups() {
 
         RestTemplate restTemplate = new RestTemplate();
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         params.put("key", getKey());
+        params.put("meetup_url_path", getMeetupPath());
         ResponseEntity<Event[]> responseEntity = restTemplate.getForEntity(EVENT_URL, Event[].class, params);
-        Event[] events =responseEntity.getBody();
+        Event[] events = responseEntity.getBody();
 
         return events;
 
@@ -98,4 +102,7 @@ public class MeetupData {
     }
 
 
+    public String getMeetupPath() {
+        return meetupPath;
+    }
 }
