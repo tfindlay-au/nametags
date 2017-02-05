@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 public class MeetupData {
@@ -28,11 +29,13 @@ public class MeetupData {
     @Value("${meetup-url-path}")
     private String meetupPath;
 
-    private static final String EVENT_URL = "https://api.meetup.com/{meetup_url_path}/events?scroll=next_upcoming&photo-host=public&page=20&key={key}";
+    private static final String EVENT_URL = "https://api.meetup.com/{meetup_url_path}/events?scroll=recent_past&photo-host=public&page=20&key={key}";
 
     private static final String RSVP_URL = "https://api.meetup.com/2/rsvps?&sign=true&key={key}&event_id={event_id}&photo-host=public&page=120&rsvp=yes";
 
     private static final String MEMBERS_URL = "https://api.meetup.com/2/members?&key={key}&sign=true&photo-host=public&group_id={group_id}&page=100&only=id,joined,photo&offset={page}";
+
+    private static final String HOSTS_URL = "https://api.meetup.com/{meetup_url_path}/events/{event_id}/hosts?key={key}";
 
 
     public String getKey() { return key; }
@@ -104,5 +107,19 @@ public class MeetupData {
 
     public String getMeetupPath() {
         return meetupPath;
+    }
+
+    public Set<String> getHosts(String eventId) {
+
+        RestTemplate restTemplate = new RestTemplate();
+        Map<String, Object> params = new HashMap<String, Object>();
+
+        params.put("meetup_url_path", getMeetupPath());
+        params.put("event_id", eventId);
+        params.put("key", getKey());
+
+        ResponseEntity<Members.Member[]> responseEntity = restTemplate.getForEntity(HOSTS_URL, Members.Member[].class, params);
+
+        return Stream.of(responseEntity.getBody()).map(Members.Member::getId).collect(Collectors.toSet());
     }
 }

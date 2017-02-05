@@ -116,4 +116,8 @@ public class Nametags extends SpringBootServletInitializer implements CommandLin
     public CacheManager cacheManager() {
         return new ConcurrentMapCacheManager("members");
     }
+
+    public Set<String> getHosts(String eventId) {
+        return meetup.getHosts(eventId);
+    }
 }
