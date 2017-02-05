@@ -28,7 +28,7 @@ public class MeetupData {
     @Value("${meetup-url-path}")
     private String meetupPath;
 
-    private static final String EVENT_URL = "https://api.meetup.com/{meetup_url_path}/events?scroll=next_upcoming&photo-host=public&page=20&key={key}";
+    private static final String EVENT_URL = "https://api.meetup.com/{meetup_url_path}/events?scroll=recent_past&photo-host=public&page=20&key={key}";
 
     private static final String RSVP_URL = "https://api.meetup.com/2/rsvps?&sign=true&key={key}&event_id={event_id}&photo-host=public&page=120&rsvp=yes";
 
