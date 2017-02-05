@@ -22,9 +22,13 @@ public class RaffleController {
     @RequestMapping("/raffle")
     public Map<String, List<Attendee>> getAttendeeList(@RequestParam(value = "eventId") String eventId) {
 
+        Set<String> meetupHosts = nametags.getHosts(eventId);
+
         Set<String> ineligibleMembers = ineligible.computeIfAbsent(eventId, s -> new HashSet<String>());
+
         List<Attendee> attendees = nametags.getAttendeeList(eventId).get("attendees").stream()
                 .filter(s -> !ineligibleMembers.contains(s.getId()))
+                .filter(s -> !meetupHosts.contains(s.getId()))
                 .collect(Collectors.toList());
 
         Map<String, List<Attendee>> resultMap = new HashMap<>();
