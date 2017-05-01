@@ -4,7 +4,6 @@ import io.github.linead.nametags.domain.Attendee;
 import io.github.linead.nametags.domain.Event;
 import io.github.linead.nametags.domain.Members;
 import io.github.linead.nametags.domain.Rsvp;
-import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,28 +89,13 @@ public class Nametags extends SpringBootServletInitializer implements CommandLin
 
                     String pictureURLStr = member.getPhoto().getThumb_link();
                     log.info("getAttendeeList() photo URL:" + pictureURLStr);
-
                     if(sendPictureAsBase64) {
                         // Retrieve image data and encode it
-                        try {
-                            byte[] b = IOUtils.toByteArray((new URL(pictureURLStr)).openStream());
-                            Base64 b64 = new Base64();
-                            att.setPictureData(b64.encodeToString(b));
-                        } catch(MalformedURLException e) {
-                            log.error("getAttendeeList() Bad photo URL:" + e.getMessage());
-                        } catch(IOException e) {
-                            log.error("getAttendeeList() Error getting image data:" + e.getMessage());
-                        }
-
+                        att.setPictureData(encodeImageData(pictureURLStr));
                     } else {
                         // Pass image URL on to Docmosis
                         att.setPictureUrl(pictureURLStr);
                     }
-
-
-                } else {
-                    log.warn("No image for:" + rsvp.getMember().getName());
-                    att.setPictureUrl("http://photos3.meetupstatic.com/photos/event/7/3/a/2/global_414329602.jpeg");
                 }
             }
 
@@ -150,5 +134,20 @@ public class Nametags extends SpringBootServletInitializer implements CommandLin
 
     public Set<String> getHosts(String eventId) {
         return meetup.getHosts(eventId);
+    }
+
+    private String encodeImageData(String pictureURLStr) {
+        String imageData = "";
+
+        try {
+            byte[] b = IOUtils.toByteArray((new URL(pictureURLStr)).openStream());
+            imageData = Base64.getEncoder().encodeToString(b);
+        } catch(MalformedURLException e) {
+            log.error("getAttendeeList() Bad photo URL:" + e.getMessage());
+        } catch(IOException e) {
+            log.error("getAttendeeList() Error getting image data:" + e.getMessage());
+        }
+
+        return imageData;
     }
 }

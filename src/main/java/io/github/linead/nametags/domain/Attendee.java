@@ -1,18 +1,22 @@
 package io.github.linead.nametags.domain;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.Date;
 
 public class Attendee {
-    private final Logger log = LoggerFactory.getLogger(this.getClass());
 
     private String id;
     private String name;
     private Date joined;
     private String pictureUrl;
     private String pictureData;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -30,25 +34,21 @@ public class Attendee {
         this.joined = joined;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getPictureUrl() {
         return pictureUrl;
     }
 
-    public void setPictureUrl(String pictureUrl) { this.pictureUrl = pictureUrl; }
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
+    }
 
     public String getPictureData() {
         return pictureData;
     }
 
-    public void setPictureData(String pictureData) { this.pictureData = pictureData; }
+    public void setPictureData(String pictureData) {
+        this.pictureData = pictureData;
+    }
 
     public String getPhoto() {
         if(this.pictureUrl != null) {
@@ -56,7 +56,9 @@ public class Attendee {
         } else if (this.pictureData != null) {
             return String.format("image:base64:%s", pictureData);
         } else {
-            return null;
+            String default_image = "http://photos3.meetupstatic.com/photos/event/7/3/a/2/global_414329602.jpeg";
+            return String.format("[imageUrl:%s]", default_image);
+
         }
     }
 }
